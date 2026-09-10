@@ -7,6 +7,9 @@
     "dev": "node --watch src/server.js"
   },
   "author": "Luis Carlos da Silva Dias (https://github.com/silvadias)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+  	"dotenv": "^16.4.5"
+  }
 }
 
