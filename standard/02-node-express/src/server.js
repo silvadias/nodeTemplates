@@ -1,14 +1,18 @@
-const http = require('http');
-const env = require('./config/env'); // Importa a sua camada de configuração
+const express = require('express');
+const env = require('./config/env');
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ 
-    message: "Node.js Standard Template running perfectly!",
+const app = express();
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  return res.status(200).json({
+    message: "Node.js Standard Template with Express running perfectly inside Docker!",
+    status: "online",
     environment: env.nodeEnv
-  }));
+  });
 });
 
-server.listen(env.port, () => {
-  console.log(`Server running on port ${env.port} in ${env.nodeEnv} mode`);
+app.listen(env.port, () => {
+  console.log(`Express server running on port ${env.port} in ${env.nodeEnv} mode`);
 });
