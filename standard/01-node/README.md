@@ -1,1 +1,1 @@
-# Node standart templates
+# Node standard templates
