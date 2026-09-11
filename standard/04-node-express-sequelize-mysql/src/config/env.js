@@ -1,3 +1,4 @@
+// 🚀 Template by: Luis Carlos da Silva Dias (https://github.com)
 require('dotenv').config();
 
 const env = {
@@ -8,8 +9,8 @@ const env = {
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT) || 3306,
     name: process.env.DB_NAME,
-    user: 'root', 
-    password: process.env.DB_ROOT_PASSWORD,
+    user: process.env.DB_USER, 
+    password: process.env.DB_PASSWORD,
   },
 };
 
