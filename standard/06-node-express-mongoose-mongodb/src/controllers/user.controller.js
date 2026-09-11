@@ -3,7 +3,7 @@ const User = require('../models/user.model');
 class UserController {
   static async getAllUsers(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await User.find();
       
       return res.status(200).json({
         success: true,
@@ -12,7 +12,7 @@ class UserController {
     } catch (error) {
       return res.status(500).json({
         success: false,
-        message: "Internal server error while fetching users from database"
+        message: "Internal server error while fetching users from MongoDB"
       });
     }
   }
@@ -32,13 +32,21 @@ class UserController {
       
       return res.status(201).json({
         success: true,
-        message: "User created successfully in database",
+        message: "User created successfully in MongoDB",
         data: newUser
       });
     } catch (error) {
+
+      if (error.code === 11000) {
+        return res.status(409).json({
+          success: false,
+          message: "Email already exists in database"
+        });
+      }
+
       return res.status(500).json({
         success: false,
-        message: "Internal server error while creating user in database"
+        message: "Internal server error while creating user in MongoDB"
       });
     }
   }
