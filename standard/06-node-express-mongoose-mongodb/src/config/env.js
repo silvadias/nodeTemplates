@@ -1,16 +1,17 @@
-// 🚀 Template by: Luis Carlos da Silva Dias (https://github.com)
 require('dotenv').config();
+
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASSWORD;
+const dbHost = process.env.DB_HOST || 'db';
+const dbPort = process.env.DB_PORT || 27017;
+const dbName = process.env.DB_NAME || 'template_db';
 
 const env = {
   port: Number(process.env.PORT) || 3000,
   nodeEnv: process.env.NODE_ENV || 'development',
 
   database: {
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT) || 3306,
-    name: process.env.DB_NAME,
-    user: process.env.DB_USER, 
-    password: process.env.DB_PASSWORD,
+    uri: `mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`
   },
 };
 
