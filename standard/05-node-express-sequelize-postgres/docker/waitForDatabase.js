@@ -31,12 +31,12 @@ async function waitForDatabase() {
     const isAvailable = await checkDatabase();
 
     if (isAvailable) {
-      console.log('MySQL is ready!');
+      console.log('Database is ready!');
       return;
     }
 
     console.log(
-      `Waiting for MySQL... attempt ${attempt}/${maxAttempts}`
+      `Waiting for Database... attempt ${attempt}/${maxAttempts}`
     );
 
     await new Promise((resolve) => {
@@ -44,7 +44,7 @@ async function waitForDatabase() {
     });
   }
 
-  console.error('MySQL did not become available in time.');
+  console.error('Database did not become available in time.');
   process.exit(1);
 }
 
