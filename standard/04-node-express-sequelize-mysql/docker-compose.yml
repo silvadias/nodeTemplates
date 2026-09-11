@@ -17,6 +17,7 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
       - ./database:/usr/src/app/database
+    entrypoint: ["docker/setupEnvironment.sh"]
     depends_on:
       db:
         condition: service_healthy
