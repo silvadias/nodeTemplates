@@ -1,6 +1,5 @@
-// 🚀 Template by: Luis Carlos da Silva Dias (https://github.com)
 const UserModel = require('../models/user.model');
-const catchAsync = require('../utils/catchAsync.util'); // 👈 Importa o encapsulador universal
+const catchAsync = require('../utils/catchAsync.util'); 
 
 class UserController {
   // GET /users
@@ -17,10 +16,10 @@ class UserController {
     const { name, email } = req.body;
 
     if (!name || !email) {
-      // Para disparar um erro com status personalizado para o middleware global:
+      // To trigger an error with a custom status for the global middleware:
       const error = new Error("Name and email are required fields");
       error.statusCode = 400;
-      throw error; // O catchAsync vai capturar esse throw sozinho!
+      throw error;  // catchAsync will automatically catch this throw!
     }
 
     const newUser = UserModel.create({ name, email });
