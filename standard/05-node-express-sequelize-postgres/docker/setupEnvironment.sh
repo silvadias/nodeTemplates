@@ -4,10 +4,9 @@ set -e
 
 echo "Starting application environment..."
 
-echo "Installing dependencies..."
 npm install
 
-echo "Waiting for MySQL..."
+echo "Waiting for Database..."
 node docker/waitForDatabase.js
 
 echo "Running migrations..."
