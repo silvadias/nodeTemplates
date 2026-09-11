@@ -16,7 +16,6 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-      - ./database:/usr/src/app/database
     depends_on:
       db:
         condition: service_healthy
@@ -24,21 +23,21 @@ services:
       - nodeNetwork
 
   db:
-    image: postgres:15-alpine
-    container_name: postgresContainer
+    image: mongo:6.0
+    container_name: mongoContainer
     restart: always
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${DB_NAME}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${MONGO_PORT}:27017"
     volumes:
-      - postgresData:/var/lib/postgresql/data 
+      - mongoData:/data/db
     networks:
       - nodeNetwork
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      test: ["CMD-SHELL", "mongosh --user ${DB_USER} --password ${DB_PASSWORD} --eval 'db.runCommand({ping:1})' --quiet"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -49,4 +48,4 @@ networks:
     driver: bridge
 
 volumes:
-  postgresData:
+  mongoData:
