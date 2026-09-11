@@ -1,3 +1,4 @@
+// 🚀 Template by: Luis Carlos da Silva Dias (https://github.com)
 const env = require('./env');
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     database: env.database.name,
     host: env.database.host,
     port: env.database.port,
-    dialect: 'mysql',
+    dialect: 'postgres',
     logging: console.log,
     define: {
       timestamps: true,
@@ -20,7 +21,7 @@ module.exports = {
     database: env.database.name,
     host: env.database.host,
     port: env.database.port,
-    dialect: 'mysql',
+    dialect: 'postgres', 
     logging: false
   }
 };

@@ -1,7 +1,7 @@
 {
-  "name": "node-express-sequelize-mysql-template",
+  "name": "node-express-sequelize-postgres-template",
   "version": "1.0.0",
-  "description": "Enterprise Node.js template with Express, Sequelize, MySQL, and Docker",
+  "description": "Enterprise Node.js template with Express, Sequelize, PostgreSQL, and Docker",
   "main": "src/server.js",
   "scripts": {
     "dev": "node --watch src/server.js",
@@ -9,12 +9,13 @@
     "db:migrate": "sequelize-cli db:migrate",
     "db:seed": "sequelize-cli db:seed:all"
   },
-  "author": "Luis Carlos da Silva Dias (https://github.com/silvadias)",
+  "author": "Luis Carlos da Silva Dias (https://github.com)",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "mysql2": "^3.24.4",
+    "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.8"
   },
   "devDependencies": {
