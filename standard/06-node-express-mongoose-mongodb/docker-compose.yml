@@ -16,7 +16,6 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    # 👈 MUDANÇA SÊNIOR: O Node inicia direto sem depender do healthcheck, pois o waitForDatabase já gerencia a espera!
     networks:
       - nodeNetwork
 
@@ -34,7 +33,6 @@ services:
       - mongoData:/data/db
     networks:
       - nodeNetwork
-    # 👈 BOA PRÁTICA: O bloco "healthcheck" foi removido por completo para extinguir os pings e os logs repetitivos de "client metadata"
 
 networks:
   nodeNetwork:
