@@ -1,0 +1,15 @@
+const path = require('path');
+
+module.exports = {
+  // Tells the CLI where your dynamic database credentials file is located
+  'config': path.resolve('src', 'config', 'database.js'),
+
+  // Tells the CLI to read and save JavaScript models here
+  'models-path': path.resolve('src', 'models'),
+
+  // Tells the CLI to create and version tables in the database folder at the root
+  'migrations-path': path.resolve('database', 'migrations'),
+
+  // Tells the CLI to create and version mock data here
+  'seeders-path': path.resolve('database', 'seeders')
+};
