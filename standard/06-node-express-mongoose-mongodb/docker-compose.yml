@@ -1,6 +1,6 @@
 services:
   server:
-    image: node:24-slin
+    image: node:24-alpine
     container_name: nodeContainer
     working_dir: /usr/src/app
     entrypoint: /usr/src/app/docker/setupEnvironment.sh 
