@@ -1,0 +1,23 @@
+{
+  "name": "node-express-sequelize-mysql-template",
+  "version": "1.0.0",
+  "description": "Enterprise Node.js template with Express, Sequelize, MySQL, and Docker",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:seed": "sequelize-cli db:seed:all"
+  },
+  "author": "Luis Carlos da Silva Dias (https://github.com/silvadias)",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.24.4",
+    "sequelize": "^6.37.8"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.5"
+  }
+}

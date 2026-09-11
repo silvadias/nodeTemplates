@@ -1,0 +1,53 @@
+services:
+  server:
+    image: node:24-alpine
+    container_name: nodeContainer
+    working_dir: /usr/src/app
+    entrypoint: /usr/src/app/docker/setupEnvironment.sh 
+    ports:
+      - "${PORT}:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - ./database:/usr/src/app/database
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - nodeNetwork
+
+  db:
+    image: mysql:8.0
+    container_name: mysqlContainer
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - mysqlData:/var/lib/mysql
+    networks:
+      - nodeNetwork
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$${DB_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+
+networks:
+  nodeNetwork:
+    driver: bridge
+
+volumes:
+  mysqlData:
