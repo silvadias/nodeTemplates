@@ -1,19 +1,24 @@
-const db = require('../../database/db');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('./index'); // Importa a nossa instância de conexão central
 
-class UserModel {
-  static findAll() {
-    return db.users;
+const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
   }
+}, {
+  tableName: 'users'
+});
 
-  static create({ name, email }) {
-    const newUser = {
-      id: db.users.length + 1,
-      name,
-      email
-    };
-    db.users.push(newUser);
-    return newUser;
-  }
-}
-
-module.exports = UserModel;
+module.exports = User;
