@@ -1,6 +1,6 @@
 services:
   server:
-    image: node:24-alpine
+    image: node:22-alpine
     container_name: nodeContainer
     working_dir: /usr/src/app
     entrypoint: /usr/src/app/docker/setupEnvironment.sh 
@@ -16,16 +16,14 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    depends_on:
-      db:
-        condition: service_healthy
+    # 👈 MUDANÇA SÊNIOR: O Node inicia direto sem depender do healthcheck, pois o waitForDatabase já gerencia a espera!
     networks:
       - nodeNetwork
 
   db:
     image: mongo:6.0
     container_name: mongoContainer
-    restart: unless-stopped
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
@@ -36,12 +34,7 @@ services:
       - mongoData:/data/db
     networks:
       - nodeNetwork
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 40s
+    # 👈 BOA PRÁTICA: O bloco "healthcheck" foi removido por completo para extinguir os pings e os logs repetitivos de "client metadata"
 
 networks:
   nodeNetwork:

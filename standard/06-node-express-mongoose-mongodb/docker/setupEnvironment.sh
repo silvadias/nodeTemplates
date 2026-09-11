@@ -12,4 +12,4 @@ node docker/waitForDatabase.js
 
 echo "Starting application..."
 
-npm run dev 
+exec npm run dev
