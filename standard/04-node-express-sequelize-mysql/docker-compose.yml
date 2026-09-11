@@ -3,7 +3,7 @@ services:
     image: node:24-alpine
     container_name: nodeContainer
     working_dir: /usr/src/app
-    entrypoint: ./docker/entrypoint.sh 
+    entrypoint: /usr/src/app/docker/setupEnvironment.sh 
     ports:
       - "${PORT}:3000"
     environment:
