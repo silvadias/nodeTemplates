@@ -18,8 +18,7 @@ services:
       - /usr/src/app/node_modules
       - ./database:/usr/src/app/database
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     networks:
       - nodeNetwork
 
@@ -38,12 +37,6 @@ services:
       - mysqlData:/var/lib/mysql
     networks:
       - nodeNetwork
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$${DB_ROOT_PASSWORD} --silent"]
-      interval: 5s
-      timeout: 5s
-      retries: 30
-      start_period: 60s
 
 networks:
   nodeNetwork:
