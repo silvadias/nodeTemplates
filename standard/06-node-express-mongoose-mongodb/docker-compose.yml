@@ -25,7 +25,7 @@ services:
   db:
     image: mongo:6.0
     container_name: mongoContainer
-    restart: always
+    restart: unless-stopped
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
@@ -37,11 +37,11 @@ services:
     networks:
       - nodeNetwork
     healthcheck:
-      test: ["CMD-SHELL", "mongosh --user ${DB_USER} --password ${DB_PASSWORD} --eval 'db.runCommand({ping:1})' --quiet"]
-      interval: 5s
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
       timeout: 5s
-      retries: 10
-      start_period: 10s
+      retries: 5
+      start_period: 40s
 
 networks:
   nodeNetwork:
