@@ -1,10 +1,10 @@
-const UserModel = require('../models/user.model');
+const User = require('../models/user.model');
 
 class UserController {
-// GET /users
-  static getAllUsers(req, res) {
+  static async getAllUsers(req, res) {
     try {
-      const users = UserModel.findAll();
+      const users = await User.findAll();
+      
       return res.status(200).json({
         success: true,
         data: users
@@ -12,17 +12,15 @@ class UserController {
     } catch (error) {
       return res.status(500).json({
         success: false,
-        message: "Internal server error while fetching users"
+        message: "Internal server error while fetching users from database"
       });
     }
   }
 
-  // POST /users
-  static createUser(req, res) {
+  static async createUser(req, res) {
     try {
       const { name, email } = req.body;
 
-      // Validação simples de dados de entrada (Sempre uma boa prática)
       if (!name || !email) {
         return res.status(400).json({
           success: false,
@@ -30,17 +28,17 @@ class UserController {
         });
       }
 
-      const newUser = UserModel.create({ name, email });
+      const newUser = await User.create({ name, email });
       
       return res.status(201).json({
         success: true,
-        message: "User created successfully",
+        message: "User created successfully in database",
         data: newUser
       });
     } catch (error) {
       return res.status(500).json({
         success: false,
-        message: "Internal server error while creating user"
+        message: "Internal server error while creating user in database"
       });
     }
   }
