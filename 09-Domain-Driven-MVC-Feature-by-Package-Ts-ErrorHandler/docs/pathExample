@@ -1,0 +1,73 @@
+# 📂 Documentação do Projeto - Boilerplate API Node.js
+
+Esta pasta é o repositório central de toda a base de conhecimento técnico, regras de negócio e modelagens do projeto. O objetivo deste espaço é centralizar artefatos que guiam o desenvolvimento, servindo como referência tanto para desenvolvedores quanto para ferramentas de IA que precisem de contexto sobre o ecossistema da aplicação.
+
+>  **Nota de Uso:** O arquivo `DDD.example.md` incluído nesta pasta serve apenas como referência inicial de padrão de escrita. Ele pode ser deletado assim que você iniciar a estruturação da documentação real do seu novo sistema aqui.
+
+###  O que deve ser armazenado aqui:
+* **Especificações de DDD:** Mapeamento de contextos delimitados (Bounded Contexts), agregados e entidades.
+* **Documentação de TDD:** Casos de teste, fluxos conceituais e contratos de comportamento de software.
+* **Diagramas e Infraestrutura:** Desenhos de arquitetura, fluxos de dados de APIs e contratos de Integração (como payloads de APIs de IA).
+* **Guias de Onboarding:** Passos rápidos para novos desenvolvedores prepararem o ambiente local.
+
+---
+
+##  Potencial de Escalabilidade (Futuro do Projeto)
+
+O desenho atual da arquitetura foi pensado especificamente para evoluir sem a necessidade de reescritas completas de código. Devido ao isolamento da estrutura por domínios (**Feature-by-Package**), o projeto está pronto para receber as seguintes expansões:
+
+* **Integração com APIs de IA:** Preparado para acoplar serviços e agentes de Inteligência Artificial (ex: Gemini, OpenAI) criando uma pasta dedicada de serviços sem impactar o fluxo de rotas tradicional.
+* **Internacionalização (I18N):** O sistema global de tratamento de erros tipados pode receber facilmente chaves de tradução dinâmicas, permitindo que a API responda mensagens de erro multi-idiomas baseando-se no cabeçalho das requisições.
+* **Escalabilidade de Funcionalidades:** Novas regras de negócio (ex: `billing`, `analytics`) podem ser criadas em minutos apenas adicionando uma nova subpasta isolada dentro de `src/api/`, mantendo o acoplamento próximo de zero.
+* **Migração de Microserviços:** Se um domínio (ex: `users`) crescer demais e demandar infraestrutura própria, toda a pasta `src/api/users/` pode ser extraída diretamente para um novo repositório com o mínimo de fricção.
+
+---
+
+# # Infraestrutura Arquitetural Inicial
+
+O estado atual do ecossistema de arquivos e diretórios da aplicação está organizado da seguinte forma:
+
+```text
+.
+├── .vscode/
+│   └── settings.json
+├── docs/
+│   └── DDD.example.md
+├── src/
+│   ├── api/
+│   │   ├── errors/
+│   │   │   ├── domain/
+│   │   │   │   └── home.ts
+│   │   │   ├── apiError.ts
+│   │   │   ├── catalog.ts
+│   │   │   └── registy.ts
+│   │   ├── home/
+│   │   │   ├── controller.ts
+│   │   │   └── routes.ts
+│   │   └── users/
+│   │       ├── controller.ts
+│   │       ├── model.ts
+│   │       └── routes.ts
+│   ├── config/
+│   │   └── env.ts
+│   ├── database/
+│   │   └── mysql/
+│   │       ├── instance.ts
+│   │       └── tables.ts
+│   └── entryPoint/
+│       ├── middlewares/
+│       │   └── errorHandler.ts
+│       └── utils/
+│           └── catchAsync.ts
+├── .env
+├── .gitignore
+├── docker-compose.yml
+├── package-lock.json
+├── package.json
+├── README.md
+├── tsconfig.json
+├── src/apiRouter.ts
+├── src/app.ts
+└── src/server.ts
+```
+
