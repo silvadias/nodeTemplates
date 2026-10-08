@@ -19,6 +19,7 @@ export interface HttpTrafficRequest<
 export interface HttpTrafficResponse<Payload = any> {
   statusCode: number;
   body      : Payload;
+  newToken? : string;
 
 }
 
